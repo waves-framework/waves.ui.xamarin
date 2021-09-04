@@ -1,0 +1,3 @@
+[submodule "waves.ui.showcase.common"]
+	path = waves.ui.showcase.common
+	url = https://github.com/waves-framework/waves.ui.showcase.common.git
