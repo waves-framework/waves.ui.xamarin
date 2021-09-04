@@ -19,4 +19,8 @@
     <ItemGroup>
       <Folder Include="Plugins\Services\Interfaces" />
     </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Generic.xaml" />
+    </ItemGroup>
 </Project>
