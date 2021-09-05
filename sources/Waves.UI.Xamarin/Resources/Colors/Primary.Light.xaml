@@ -1,11 +1,12 @@
 <colors:ColorSet xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:colors="clr-namespace:Waves.UI.Xamarin.Colors;assembly=Waves.UI.Xamarin"
+                 x:Class="Waves.UI.Xamarin.Resources.Colors.Light"
                  Name="Primary Default Light"
                  Id="28F045D8-F9D6-4067-8EAA-9E441ADB9FA9"
                  Type="Primary">
     
-    <!-- Primary Fill Colors -->
+        <!-- Primary Fill Colors -->
     <Color x:Key="Color-100">#FFFFFF</Color>
     <Color x:Key="Color-200">#F6F6F6</Color>
     <Color x:Key="Color-300">#F2F2F2</Color>
@@ -48,5 +49,5 @@
     <SolidColorBrush x:Key="Primary-Foreground-700-Brush" Color="{DynamicResource Color-Foreground-700}" />
     <SolidColorBrush x:Key="Primary-Foreground-800-Brush" Color="{DynamicResource Color-Foreground-800}" />
     <SolidColorBrush x:Key="Primary-Foreground-900-Brush" Color="{DynamicResource Color-Foreground-900}" />
-                    
+    
 </colors:ColorSet>

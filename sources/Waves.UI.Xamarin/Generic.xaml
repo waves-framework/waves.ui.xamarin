@@ -1,11 +1,20 @@
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:styles="clr-namespace:Waves.UI.Xamarin.Styles;assembly=Waves.UI.Xamarin">
+                    xmlns:system="clr-namespace:System;assembly=netstandard"
+                    xmlns:styles="clr-namespace:Waves.UI.Xamarin.Styles;assembly=Waves.UI.Xamarin"
+                    xmlns:colors="clr-namespace:Waves.UI.Xamarin.Resources.Colors;assembly=Waves.UI.Xamarin"
+                    x:Class="Waves.UI.Xamarin.Generic">
     
-            <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary.MergedDictionaries>
 
-                <styles:Opacity/>
+        <!-- Styles -->
+        <styles:Opacity/>
+        <styles:Padding/>
+                
+        <!-- Colors -->
+        <colors:Dark/>
+        <colors:ForestGreenCrayola/>
 
-            </ResourceDictionary.MergedDictionaries>
-                    
+    </ResourceDictionary.MergedDictionaries>
+    
 </ResourceDictionary>

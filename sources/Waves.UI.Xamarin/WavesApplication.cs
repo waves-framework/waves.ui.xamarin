@@ -13,15 +13,23 @@ namespace Waves.UI.Xamarin
     /// </summary>
     public class WavesApplication : Application
     {
-        private IWavesNavigationService _navigationService;
-        private IWavesDialogService _dialogService;
         private IWavesDispatcherService _dispatcherService;
 
         /// <summary>
         /// Gets core.
         /// </summary>
-        public IWavesCore Core { get; private set; } = new Core.Core();
+        protected IWavesCore Core { get; private set; }
 
+        /// <summary>
+        /// Gets navigation service.
+        /// </summary>
+        protected IWavesNavigationService NavigationService { get; private set; }
+        
+        /// <summary>
+        /// Gets dialog service.
+        /// </summary>
+        protected IWavesDialogService DialogService { get; private set; }   
+        
         protected override async void OnStart()
         {
             base.OnStart();
@@ -31,6 +39,8 @@ namespace Waves.UI.Xamarin
                 TaskScheduler.UnobservedTaskException += OnTaskSchedulerUnobservedTaskException;
                 Core.MessageReceived += OnCoreMessageReceived;
 
+                Core = new Core.Core();
+                
                 await Core.StartAsync();
                 await Core.BuildContainerAsync();
                 await InitializeServices();
@@ -47,8 +57,8 @@ namespace Waves.UI.Xamarin
         /// </summary>
         private async Task InitializeServices()
         {
-            _navigationService = await Core.GetInstanceAsync<IWavesNavigationService>();
-            _dialogService = await Core.GetInstanceAsync<IWavesDialogService>();
+            NavigationService = await Core.GetInstanceAsync<IWavesNavigationService>();
+            DialogService = await Core.GetInstanceAsync<IWavesDialogService>();
             _dispatcherService = await Core.GetInstanceAsync<IWavesDispatcherService>();
 
             await Task.Delay(1000);
@@ -87,14 +97,14 @@ namespace Waves.UI.Xamarin
                 return;
             }
 
-            if (_dialogService == null && _dispatcherService == null)
+            if (DialogService == null && _dispatcherService == null)
             {
                 return;
             }
 
             _dispatcherService.Invoke(() =>
             {
-                _dialogService.ShowDialogAsync(e);
+                DialogService.ShowDialogAsync(e);
             });
         }
     }

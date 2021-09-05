@@ -1,15 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace Waves.UI.Xamarin.Showcase.App
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace Waves.UI.Xamarin
 {
-    public partial class MainPage
+    public partial class Generic
     {
-        public MainPage()
+        public Generic()
         {
             InitializeComponent();
         }

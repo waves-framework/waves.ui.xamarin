@@ -1,6 +1,7 @@
 <colors:ColorSet xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:colors="clr-namespace:Waves.UI.Xamarin.Colors;assembly=Waves.UI.Xamarin"
+                 x:Class="Waves.UI.Xamarin.Resources.Colors.Dark"
                  Name="Primary Default Dark"
                  Id="973BDB65-D243-4694-9735-EA72105F3EEE"
                  Type="Primary">
@@ -48,5 +49,5 @@
         <SolidColorBrush x:Key="Primary-Foreground-700-Brush" Color="{DynamicResource Color-Foreground-700}" />
         <SolidColorBrush x:Key="Primary-Foreground-800-Brush" Color="{DynamicResource Color-Foreground-800}" />
         <SolidColorBrush x:Key="Primary-Foreground-900-Brush" Color="{DynamicResource Color-Foreground-900}" />
-                    
+    
 </colors:ColorSet>

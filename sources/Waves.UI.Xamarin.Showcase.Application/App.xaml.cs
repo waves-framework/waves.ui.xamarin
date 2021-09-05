@@ -11,13 +11,15 @@ namespace Waves.UI.Xamarin.Showcase.App
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
             base.OnStart();
+
+            // await NavigationService.NavigateAsync<Mainpag>()
+            
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnSleep()

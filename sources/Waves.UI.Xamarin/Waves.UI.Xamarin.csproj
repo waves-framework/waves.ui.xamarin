@@ -16,11 +16,30 @@
       <ProjectReference Include="..\..\..\ui\sources\Waves.UI\Waves.UI.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Plugins\Services\Interfaces" />
-    </ItemGroup>
+<!--    <ItemGroup>-->
+<!--      <EmbeddedResource Include="Generic.xaml" />-->
+<!--    </ItemGroup>-->
 
     <ItemGroup>
-      <EmbeddedResource Include="Generic.xaml" />
+      <Compile Update="Styles\Padding.xaml.cs">
+        <DependentUpon>Padding.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Resources\Colors\Accent.ForestGreenCrayola.xaml.cs">
+        <DependentUpon>Opacity.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Resources\Colors\Primary.Dark.xaml.cs">
+        <DependentUpon>Primary.Dark.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Resources\Colors\Primary.Light.xaml.cs">
+        <DependentUpon>Primary.Light.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Generic.xaml.cs">
+        <DependentUpon>Opacity.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>
