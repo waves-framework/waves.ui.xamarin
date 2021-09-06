@@ -24,11 +24,12 @@ namespace Waves.UI.Xamarin.Showcase.App.Presentation.View.Pages
         /// </summary>
         /// <param name="core">Instance of <see cref="Core"/>.</param>
         /// <param name="navigationService">Instance of <see cref="IWavesNavigationService"/>.</param>
-        protected MainPage(
+        public MainPage(
             IWavesCore core,
             IWavesNavigationService navigationService)
             : base(core, navigationService)
         {
+            InitializeComponent();
         }
     }
 }

@@ -2,16 +2,18 @@
 
 <controls:WavesPage xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:controls="clr-namespace:Waves.UI.Xamarin.Controls;assembly=Waves.UI.Xamarin"
-                    x:Class="Waves.UI.Xamarin.Showcase.App.Presentation.View.Pages.MainPage">
+                    xmlns:controls="clr-namespace:Waves.UI.Xamarin.Controls;assembly=Waves.UI.Xamarin" 
+                    xmlns:pages="clr-namespace:Waves.UI.Showcase.Common.Presentation.ViewModel.Pages;assembly=Waves.UI.Showcase.Common" 
+                    x:DataType="pages:MainPageViewModel"
+                    x:Class="Waves.UI.Xamarin.Showcase.App.Presentation.View.Pages.MainPage"
+                    Title="Waves UI Showcase"
+                    BackgroundColor="{DynamicResource Color-100}">
     
     <ContentPage.Content>
         
         <StackLayout>
             
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+            <CollectionView ItemsSource="{Binding Tabs}"/>
             
         </StackLayout>
         

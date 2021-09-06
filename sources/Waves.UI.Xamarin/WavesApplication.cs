@@ -4,6 +4,7 @@ using Waves.Core.Base;
 using Waves.Core.Base.Enums;
 using Waves.Core.Base.Interfaces;
 using Waves.UI.Plugins.Services.Interfaces;
+using Waves.UI.Xamarin.Extensions;
 using Waves.UI.Xamarin.Plugins.Services;
 using Xamarin.Forms;
 
@@ -75,7 +76,7 @@ namespace Waves.UI.Xamarin
         /// </summary>
         private Task InitializeGenericDictionary()
         {
-            // this.AddStyle(Constants.GenericDictionaryUri);
+            this.AddResource(new Generic());
             return Task.CompletedTask;
         }
 
