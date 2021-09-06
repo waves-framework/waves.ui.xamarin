@@ -6,6 +6,8 @@ using Waves.Core.Plugins.Services.EventArgs;
 using Waves.UI.Plugins.Services;
 using Waves.UI.Plugins.Services.Interfaces;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.View;
+using Waves.UI.Presentation.Interfaces.ViewModel;
 using Xamarin.Forms;
 
 namespace Waves.UI.Xamarin.Plugins.Services
@@ -14,8 +16,11 @@ namespace Waves.UI.Xamarin.Plugins.Services
     /// Navigation service.
     /// </summary>
     [WavesService(typeof(IWavesNavigationService))]
-    public class WavesNavigationService : WavesNavigationServiceBase
+    public class WavesNavigationService : WavesNavigationServiceBase<View>
     {
+        private WavesApplication _application;
+        private NavigationPage _navigationPage;
+        
         /// <summary>
         /// Creates new instance of <see cref="WavesNavigationService"/>.
         /// </summary>
@@ -68,6 +73,15 @@ namespace Waves.UI.Xamarin.Plugins.Services
             ContentViews.Remove(region);
         }
 
+        /// <summary>
+        /// Attaches application.
+        /// </summary>
+        /// <param name="application">Application.</param>
+        public void AttachApplication(WavesApplication application)
+        {
+            _application = application;
+        }
+
         /// <inheritdoc />
         public override string ToString()
         {
@@ -92,24 +106,24 @@ namespace Waves.UI.Xamarin.Plugins.Services
         /// </summary>
         /// <param name="view">Window view.</param>
         /// <param name="viewModel">ViewModel.</param>
-        protected override async Task InitializeWindowAsync(IWavesWindow view, IWavesViewModel viewModel)
+        protected override async Task InitializeWindowAsync(IWavesWindow<View> view, IWavesViewModel viewModel)
         {
-            var region = await InitializeComponents(view, viewModel);
-            var contentView = view as ContentView;
-            if (contentView == null)
-            {
-                return;
-            }
-            
-            void Action()
-            {
-                view.Show();
-                RegisterView(contentView);
-            }
-            
-            Application.Current.Dispatcher.BeginInvokeOnMainThread(Action);
-
-            AddContentView(region, contentView);
+            // var region = await InitializeComponents(view, viewModel);
+            // var contentView = view as ContentView;
+            // if (contentView == null)
+            // {
+            //     return;
+            // }
+            //
+            // void Action()
+            // {
+            //     view.Show();
+            //     RegisterView(contentView);
+            // }
+            //
+            // Application.Current.Dispatcher.BeginInvokeOnMainThread(Action);
+            //
+            // AddContentView(region, contentView);
         }
 
         /// <summary>
@@ -118,44 +132,61 @@ namespace Waves.UI.Xamarin.Plugins.Services
         /// <param name="view">Page view.</param>
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        protected override async Task InitializePageAsync(IWavesPage view, IWavesViewModel viewModel, bool addToHistory = true)
+        protected override async Task InitializePageAsync(IWavesPage<View> view, IWavesViewModel viewModel, bool addToHistory = true)
         {
             var region = await InitializeComponents(view, viewModel);
 
             void Action()
             {
-                AddToHistoryStack(region, viewModel, addToHistory);
-                var contentView = ContentViews[region];
-                if (contentView is IWavesWindow window)
-                {
-                    // window.FrontLayerContent = null;
-                }
-
-                if (contentView.Content != null && contentView.Content.GetType() == view.GetType())
+                if (view is not ContentPage page)
                 {
                     return;
                 }
-
-                FadeOutUiElement(contentView);
-                UnregisterView(contentView);
-                ContentViews[region].Content = (View)view;
-                FadeInUiElement(contentView);
-                RegisterView(contentView);
-
-                OnGoBackChanged(
-                    new GoBackNavigationEventArgs(
-                        Histories[region].Count > 1,
-                        ContentViews[region]));
+                
+                if (_application.MainPage == null &&
+                    _navigationPage == null)
+                {
+                    _navigationPage = new NavigationPage(page);
+                    _application.MainPage = _navigationPage;
+                }
+                else
+                {
+                    _navigationPage.Navigation.PushAsync(page);
+                }
+                
+                // AddToHistoryStack(region, viewModel, addToHistory);
+                // var contentView = ContentViews[region];
+                // if (contentView is IWavesWindow<View> window)
+                // {
+                //     // window.FrontLayerContent = null;
+                // }
+                //
+                // if (contentView.Content != null && contentView.Content.GetType() == view.GetType())
+                // {
+                //     return;
+                // }
+                // FadeOutUiElement(contentView);
+                // UnregisterView(contentView);
+                // ContentViews[region].Content = (View)view;
+                // FadeInUiElement(contentView);
+                // RegisterView(contentView);
+                //
+                // OnGoBackChanged(
+                //     new GoBackNavigationEventArgs(
+                //         Histories[region].Count > 1,
+                //         ContentViews[region]));
             }
 
-            if (!ContentViews.ContainsKey(region))
-            {
-                PendingActions.Add(region, Action);
-            }
-            else
-            {
-                Application.Current.Dispatcher.BeginInvokeOnMainThread(Action);
-            }
+            Application.Current.Dispatcher.BeginInvokeOnMainThread(Action);
+            
+            // if (!ContentViews.ContainsKey(region))
+            // {
+            //     PendingActions.Add(region, Action);
+            // }
+            // else
+            // {
+            //     
+            // }
         }
 
         /// <summary>
@@ -164,7 +195,7 @@ namespace Waves.UI.Xamarin.Plugins.Services
         /// <param name="view">User control view.</param>
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        protected override async Task InitializeUserControlAsync(IWavesUserControl view, IWavesViewModel viewModel, bool addToHistory = true)
+        protected override async Task InitializeUserControlAsync(IWavesUserControl<View> view, IWavesViewModel viewModel, bool addToHistory = true)
         {
             var region = await InitializeComponents(view, viewModel);
         
@@ -196,11 +227,11 @@ namespace Waves.UI.Xamarin.Plugins.Services
         /// <param name="view">Dialog view.</param>
         /// <param name="viewModel">View model.</param>
         /// <param name="addToHistory">Sets whether add navigation to history is needed.</param>
-        protected override async Task InitializeDialogAsync(IWavesDialog view, IWavesDialogViewModel viewModel, bool addToHistory = true)
+        protected override async Task InitializeDialogAsync(IWavesDialog<View> view, IWavesDialogViewModel viewModel, bool addToHistory = true)
         {
             var region = await InitializeComponents(view, viewModel);
-            var styledElement = view as VisualElement;
-            if (styledElement == null)
+            var element = view as VisualElement;
+            if (element == null)
             {
                 return;
             }
@@ -211,7 +242,7 @@ namespace Waves.UI.Xamarin.Plugins.Services
                 DialogSessions.Add(viewModel);
                 CheckDialogs();
                 var contentView = ContentViews[region];
-                if (contentView is IWavesWindow window)
+                if (contentView is IWavesWindow<View> window)
                 {
                     UnregisterView(contentView);
                     // window.FrontLayerContent = styledElement;

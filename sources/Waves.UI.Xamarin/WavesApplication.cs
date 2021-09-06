@@ -4,6 +4,7 @@ using Waves.Core.Base;
 using Waves.Core.Base.Enums;
 using Waves.Core.Base.Interfaces;
 using Waves.UI.Plugins.Services.Interfaces;
+using Waves.UI.Xamarin.Plugins.Services;
 using Xamarin.Forms;
 
 namespace Waves.UI.Xamarin
@@ -36,10 +37,10 @@ namespace Waves.UI.Xamarin
             
             try
             {
+                Core = new Core.Core();
+                
                 TaskScheduler.UnobservedTaskException += OnTaskSchedulerUnobservedTaskException;
                 Core.MessageReceived += OnCoreMessageReceived;
-
-                Core = new Core.Core();
                 
                 await Core.StartAsync();
                 await Core.BuildContainerAsync();
@@ -60,6 +61,11 @@ namespace Waves.UI.Xamarin
             NavigationService = await Core.GetInstanceAsync<IWavesNavigationService>();
             DialogService = await Core.GetInstanceAsync<IWavesDialogService>();
             _dispatcherService = await Core.GetInstanceAsync<IWavesDispatcherService>();
+
+            if (NavigationService is WavesNavigationService xamarinNavigationService)
+            {
+                xamarinNavigationService.AttachApplication(this);
+            }
 
             await Task.Delay(1000);
         }

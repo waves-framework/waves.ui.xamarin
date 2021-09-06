@@ -6,19 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Waves.UI" Version="2021.2.1-dev.147" />
-        <PackageReference Include="Waves.Core.Plugins.Services.Log.Console" Version="2021.2.1-prerelease.4" />
-        <PackageReference Include="Waves.Core.Plugins.Services.Log.NLog" Version="2021.2.1-prerelease.4" />
+        <PackageReference Include="Waves.UI" Version="2021.2.1-prerelease.5" />
         <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\ui\sources\Waves.UI\Waves.UI.csproj" />
-    </ItemGroup>
-
-<!--    <ItemGroup>-->
-<!--      <EmbeddedResource Include="Generic.xaml" />-->
-<!--    </ItemGroup>-->
 
     <ItemGroup>
       <Compile Update="Styles\Padding.xaml.cs">

@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Waves.UI.Presentation.Interfaces;
+using Waves.UI.Presentation.Interfaces.View;
 using Waves.UI.Xamarin.Helpers;
 using Xamarin.Forms;
 
@@ -9,7 +11,7 @@ namespace Waves.UI.Xamarin.Controls
     /// <summary>
     /// Waves content control (view).
     /// </summary>
-    public class WavesContentControl : ContentView
+    public class WavesContentControl : ContentView, IWavesContentControl<View>
     {
         /// <summary>
         /// Defines <see cref="Region"/> property.
@@ -48,6 +50,16 @@ namespace Waves.UI.Xamarin.Controls
             get => (CornerRadius)GetValue(CornerRadiusProperty);
             set => SetValue(CornerRadiusProperty, value);
         }
+        
+        /// <inheritdoc />
+        public bool IsInitialized { get; }
+        
+        /// <inheritdoc />
+        public object DataContext
+        {
+            get => BindingContext;
+            set => BindingContext = value;
+        }
 
         /// <summary>
         /// Callback when corner radius changed.
@@ -66,6 +78,18 @@ namespace Waves.UI.Xamarin.Controls
             }
 
             control.SetValue(ControlHelper.CornerRadiusProperty, newValue);
+        }
+
+        /// <inheritdoc />
+        public Task InitializeAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
