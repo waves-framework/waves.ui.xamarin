@@ -1,0 +1,12 @@
+<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              x:Class="Waves.UI.Xamarin.Showcase.App.Presentation.View.Templates.PageItem">
+    
+    <Grid>
+        
+        <Button Text="{Binding Title}"
+                Command="{Binding NavigateCommand}"/>
+        
+    </Grid>
+    
+</DataTemplate>

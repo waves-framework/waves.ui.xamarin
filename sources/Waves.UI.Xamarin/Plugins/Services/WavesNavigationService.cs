@@ -85,7 +85,7 @@ namespace Waves.UI.Xamarin.Plugins.Services
         /// <inheritdoc />
         public override string ToString()
         {
-            return "AvaloniaUI Navigation Service";
+            return "Xamarin Navigation Service";
         }
 
         /// <inheritdoc />
@@ -106,24 +106,10 @@ namespace Waves.UI.Xamarin.Plugins.Services
         /// </summary>
         /// <param name="view">Window view.</param>
         /// <param name="viewModel">ViewModel.</param>
-        protected override async Task InitializeWindowAsync(IWavesWindow<View> view, IWavesViewModel viewModel)
+        protected override Task InitializeWindowAsync(IWavesWindow<View> view, IWavesViewModel viewModel)
         {
-            // var region = await InitializeComponents(view, viewModel);
-            // var contentView = view as ContentView;
-            // if (contentView == null)
-            // {
-            //     return;
-            // }
-            //
-            // void Action()
-            // {
-            //     view.Show();
-            //     RegisterView(contentView);
-            // }
-            //
-            // Application.Current.Dispatcher.BeginInvokeOnMainThread(Action);
-            //
-            // AddContentView(region, contentView);
+            // no action needed for mobile app.
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -136,23 +122,25 @@ namespace Waves.UI.Xamarin.Plugins.Services
         {
             var region = await InitializeComponents(view, viewModel);
 
+            if (view is not ContentPage page)
+            {
+                return;
+            }
+                
+            if (_application.MainPage == null &&
+                _navigationPage == null)
+            {
+                _navigationPage = new NavigationPage(page);
+                _application.MainPage = _navigationPage;
+            }
+            else
+            {
+                await _navigationPage.Navigation.PushAsync(page);
+            }
+            
             void Action()
             {
-                if (view is not ContentPage page)
-                {
-                    return;
-                }
                 
-                if (_application.MainPage == null &&
-                    _navigationPage == null)
-                {
-                    _navigationPage = new NavigationPage(page);
-                    _application.MainPage = _navigationPage;
-                }
-                else
-                {
-                    _navigationPage.Navigation.PushAsync(page);
-                }
                 
                 // AddToHistoryStack(region, viewModel, addToHistory);
                 // var contentView = ContentViews[region];
@@ -177,7 +165,7 @@ namespace Waves.UI.Xamarin.Plugins.Services
                 //         ContentViews[region]));
             }
 
-            Application.Current.Dispatcher.BeginInvokeOnMainThread(Action);
+            // Application.Current.Dispatcher.BeginInvokeOnMainThread(Action);
             
             // if (!ContentViews.ContainsKey(region))
             // {

@@ -22,8 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Showcase", "Showcase", "{09
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waves.UI.Showcase.Common", "..\submodules\ui.showcase.common\sources\Waves.UI.Showcase.Common\Waves.UI.Showcase.Common.csproj", "{51F366C0-D536-4643-8C13-EB3C99284DF4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{35BA124A-3F2A-4AB1-8A56-529A57793EC5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
