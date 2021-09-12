@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:system="clr-namespace:System;assembly=netstandard"
+                    xmlns:controls="clr-namespace:Waves.UI.Xamarin.Controls;assembly=Waves.UI.Xamarin"
+                    x:Class="Waves.UI.Xamarin.Styles.NavigationPage">
+    
+    <Style x:Key="NavigationPageStyle" TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" 
+                Value="{DynamicResource Primary-100-Brush}"/>
+    </Style>
+    
+    <Style TargetType="NavigationPage"
+           BasedOn="{StaticResource NavigationPageStyle}"/>
+    
+    <Style TargetType="controls:WavesNavigationPage" 
+           BasedOn="{StaticResource NavigationPageStyle}"/>
+    
+</ResourceDictionary>

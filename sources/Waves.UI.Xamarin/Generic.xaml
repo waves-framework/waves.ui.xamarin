@@ -10,6 +10,9 @@
         <!-- Styles -->
         <styles:Opacity/>
         <styles:Padding/>
+        
+        <!-- Control styles -->
+        <styles:NavigationPage/>
                 
         <!-- Colors -->
         <colors:Dark/>

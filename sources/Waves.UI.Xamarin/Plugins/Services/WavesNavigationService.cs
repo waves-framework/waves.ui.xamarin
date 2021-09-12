@@ -8,6 +8,7 @@ using Waves.UI.Plugins.Services.Interfaces;
 using Waves.UI.Presentation.Interfaces;
 using Waves.UI.Presentation.Interfaces.View;
 using Waves.UI.Presentation.Interfaces.ViewModel;
+using Waves.UI.Xamarin.Controls;
 using Xamarin.Forms;
 
 namespace Waves.UI.Xamarin.Plugins.Services
@@ -18,6 +19,7 @@ namespace Waves.UI.Xamarin.Plugins.Services
     [WavesService(typeof(IWavesNavigationService))]
     public class WavesNavigationService : WavesNavigationServiceBase<View>
     {
+        private readonly IWavesCore _core;
         private WavesApplication _application;
         private NavigationPage _navigationPage;
         
@@ -29,6 +31,7 @@ namespace Waves.UI.Xamarin.Plugins.Services
             IWavesCore core)
             :base(core)
         {
+            _core = core;
         }
         
         /// <summary>
@@ -130,7 +133,7 @@ namespace Waves.UI.Xamarin.Plugins.Services
             if (_application.MainPage == null &&
                 _navigationPage == null)
             {
-                _navigationPage = new NavigationPage(page);
+                _navigationPage = new WavesNavigationPage(_core, this, page);
                 _application.MainPage = _navigationPage;
             }
             else

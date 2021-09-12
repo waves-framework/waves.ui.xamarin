@@ -31,5 +31,9 @@
         <DependentUpon>Opacity.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Styles\NavigationPage.xaml.cs">
+        <DependentUpon>NavigationPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>
